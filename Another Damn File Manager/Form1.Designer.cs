@@ -39,6 +39,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.currentDirectoryTextBox = new System.Windows.Forms.TextBox();
             this.arrayLeftButton = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,8 +103,9 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "arrayLeft.png");
-            this.imageList1.Images.SetKeyName(1, "emptyFolder.png");
-            this.imageList1.Images.SetKeyName(2, "application.png");
+            this.imageList1.Images.SetKeyName(1, "refresh.png");
+            this.imageList1.Images.SetKeyName(2, "emptyFolder.png");
+            this.imageList1.Images.SetKeyName(3, "application.png");
             // 
             // currentDirectoryTextBox
             // 
@@ -124,11 +126,23 @@
             this.arrayLeftButton.UseVisualStyleBackColor = true;
             this.arrayLeftButton.Click += new System.EventHandler(this.arrayLeftButton_Click);
             // 
+            // refreshButton
+            // 
+            this.refreshButton.ImageKey = "refresh.png";
+            this.refreshButton.ImageList = this.imageList1;
+            this.refreshButton.Location = new System.Drawing.Point(52, 30);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(34, 30);
+            this.refreshButton.TabIndex = 4;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(877, 506);
+            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.arrayLeftButton);
             this.Controls.Add(this.currentDirectoryTextBox);
             this.Controls.Add(this.listView1);
@@ -158,6 +172,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TextBox currentDirectoryTextBox;
         private System.Windows.Forms.Button arrayLeftButton;
+        private System.Windows.Forms.Button refreshButton;
     }
 }
 

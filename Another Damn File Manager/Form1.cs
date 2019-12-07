@@ -71,5 +71,9 @@ namespace Another_Damn_File_Manager{
             System.IO.Directory.SetCurrentDirectory(tmpPath.ToString());
             initListView(tmpPath.ToString(), listView1, imageList1);
         }
+
+        private void refreshButton_Click(object sender, EventArgs e){
+            initListView(System.IO.Directory.GetCurrentDirectory(), listView1, imageList1);
+        }
     }
 }
