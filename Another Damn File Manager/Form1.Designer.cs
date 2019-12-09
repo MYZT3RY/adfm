@@ -95,12 +95,16 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "arrayLeft.png");
             this.imageList1.Images.SetKeyName(1, "refresh.png");
-            this.imageList1.Images.SetKeyName(2, "code.png");
-            this.imageList1.Images.SetKeyName(3, "zip.png");
-            this.imageList1.Images.SetKeyName(4, "unknownFile.png");
-            this.imageList1.Images.SetKeyName(5, "picture.png");
-            this.imageList1.Images.SetKeyName(6, "emptyFolder.png");
-            this.imageList1.Images.SetKeyName(7, "application.png");
+            this.imageList1.Images.SetKeyName(2, "audio.png");
+            this.imageList1.Images.SetKeyName(3, "video.png");
+            this.imageList1.Images.SetKeyName(4, "txt.png");
+            this.imageList1.Images.SetKeyName(5, "dll.png");
+            this.imageList1.Images.SetKeyName(6, "code.png");
+            this.imageList1.Images.SetKeyName(7, "zip.png");
+            this.imageList1.Images.SetKeyName(8, "unknownFile.png");
+            this.imageList1.Images.SetKeyName(9, "picture.png");
+            this.imageList1.Images.SetKeyName(10, "emptyFolder.png");
+            this.imageList1.Images.SetKeyName(11, "application.png");
             // 
             // refreshButton
             // 

@@ -45,8 +45,20 @@ namespace Another_Damn_File_Manager{
                 else if (extension == ".zip"){
                     listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 5);
                 }
-                else if(extension == ".cs" || extension == ".c" || extension == ".cpp" || extension == ".pas"){
+                else if(extension == ".cs" || extension == ".c" || extension == ".cpp" || extension == ".pas" || extension == ".h" || extension == ".java" || extension == ".js" || extension == ".lua" || extension == ".php" || extension == ".py"){
                     listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 6);
+                }
+                else if(extension == ".dll"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 7);
+                }
+                else if(extension == ".txt"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 8);
+                }
+                else if(extension == ".mp4" || extension == ".avi" || extension == ".mkv"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 9);
+                }
+                else if (extension == ".mp3" || extension == ".flac" || extension == ".m3u" || extension == ".ogg"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 10);
                 }
                 else{
                     listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 4);
