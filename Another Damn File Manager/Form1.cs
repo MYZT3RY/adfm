@@ -6,12 +6,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Another_Damn_File_Manager{
     public partial class Form1 : Form{
 
         private string path;
+
+        private string pathFrom;//путь, откуда копировать
+        private string pathTo;//путь, куда копировать
+
         public Form1(){
             InitializeComponent();
         }
@@ -21,7 +26,9 @@ namespace Another_Damn_File_Manager{
         }
 
         private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e){
-            MessageBox.Show("Another Damn File Manager - Ещё один чёртов файловый менеджер.\n\nПроизведено ручками d1maz. - Дмитрий Якимов.\nДля свободного использования.\n\nРаспространяется по лицензии GPL-3.0\n\nd1maz.ru/adfm\ngithub.com/MYZT3RY/adfm\n\n2019 - 2019", "О прорамме");
+            var form = new aboutProgram();
+            form.ShowDialog();
+            //MessageBox.Show("Another Damn File Manager - Ещё один чёртов файловый менеджер.\n\nПроизведено ручками d1maz. - Дмитрий Якимов.\nДля свободного использования.\n\nРаспространяется по лицензии GPL-3.0\n\nd1maz.ru/adfm\ngithub.com/MYZT3RY/adfm\n\n2019 - 2019", "О прорамме");
         }
 
         private void Form1_Load(object sender, EventArgs e){
@@ -89,7 +96,7 @@ namespace Another_Damn_File_Manager{
                 string tmpPath;
                 tmpPath = currentDirectoryTextBox.Text;
                 System.IO.Directory.SetCurrentDirectory(tmpPath);
-                initListView(path, listView1, imageList1);
+                initListView(tmpPath, listView1, imageList1);
             }
         }
 
@@ -101,6 +108,50 @@ namespace Another_Damn_File_Manager{
 
         private void refreshButton_Click(object sender, EventArgs e){
             initListView(System.IO.Directory.GetCurrentDirectory(), listView1, imageList1);
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e){
+            ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
+            try{
+                if (indexCollection[0].ToString().Length > 0){
+                    MessageBox.Show($"{listView1.Items[indexCollection[0]].Text}");
+                }
+            }
+            catch{
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e){
+            ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
+            try{
+                if(listView1.Items[indexCollection[0]].Text.Length == 0){
+                    copyToolStripMenuItem.Enabled = false;
+                }
+                else{
+                    copyToolStripMenuItem.Enabled = true;
+                }
+            }
+            catch{
+
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e){
+            ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
+            try{
+                string path = Directory.GetCurrentDirectory() + "\\" + listView1.Items[indexCollection[0]].Text;
+                if (Directory.Exists(path)){
+                    Directory.Delete(path);
+                    MessageBox.Show($"папка удалена {path}");
+                }
+                else{
+                    File.Delete(path);
+                    MessageBox.Show($"файл удалён {path}");
+                }
+            }
+            catch{
+                MessageBox.Show("Сначала нужно выбрать объект!","Ошибка!");
+            }
         }
     }
 }
