@@ -35,7 +35,22 @@ namespace Another_Damn_File_Manager{
                 listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 2);
             }
             foreach (var element in System.IO.Directory.GetFiles(path)){
-                listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 1);
+                string extension = System.IO.Path.GetExtension(element);
+                if(extension == ".png" || extension == ".ico"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 3);
+                }
+                else if (extension == ".exe"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 1);
+                }
+                else if (extension == ".zip"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 5);
+                }
+                else if(extension == ".cs" || extension == ".c" || extension == ".cpp" || extension == ".pas"){
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 6);
+                }
+                else{
+                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 4);
+                }
             }
         }
 
