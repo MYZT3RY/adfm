@@ -15,7 +15,10 @@ namespace Another_Damn_File_Manager{
         private string path;
 
         private string pathFrom;//путь, откуда копировать
-        private string pathTo;//путь, куда копировать
+
+        private int typeOfPaste=0;//состояние для действия вставки
+
+        private string exp;//для вывода исключений
 
         public Form1(){
             InitializeComponent();
@@ -28,7 +31,6 @@ namespace Another_Damn_File_Manager{
         private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e){
             var form = new aboutProgram();
             form.ShowDialog();
-            //MessageBox.Show("Another Damn File Manager - Ещё один чёртов файловый менеджер.\n\nПроизведено ручками d1maz. - Дмитрий Якимов.\nДля свободного использования.\n\nРаспространяется по лицензии GPL-3.0\n\nd1maz.ru/adfm\ngithub.com/MYZT3RY/adfm\n\n2019 - 2019", "О прорамме");
         }
 
         private void Form1_Load(object sender, EventArgs e){
@@ -73,10 +75,6 @@ namespace Another_Damn_File_Manager{
             }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e){
-            
-        }
-
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e){
             path = System.IO.Directory.GetCurrentDirectory() + "\\" + e.Item.Text;
         }
@@ -113,26 +111,52 @@ namespace Another_Damn_File_Manager{
         private void copyToolStripMenuItem_Click(object sender, EventArgs e){
             ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
             try{
-                if (indexCollection[0].ToString().Length > 0){
-                    MessageBox.Show($"{listView1.Items[indexCollection[0]].Text}");
-                }
+                pathFrom = Directory.GetCurrentDirectory() + "\\" + listView1.Items[indexCollection[0]].Text;
+                typeOfPaste = 1;
             }
             catch{
+                MessageBox.Show("Сначала нужно выбрать объект!", "Ошибка!");
             }
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e){
             ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
             try{
-                if(listView1.Items[indexCollection[0]].Text.Length == 0){
-                    copyToolStripMenuItem.Enabled = false;
+                if(indexCollection.Count == 0){
+                    addNewToolStripMenuItem.Visible = true;
+                    toolStripSeparator2.Visible = false;
+                    if (typeOfPaste == 0){
+                        pasteToolStripMenuItem.Visible = false;
+                        beforeCopyStripSeparator1.Visible = false;
+                    }
+                    else{
+                        pasteToolStripMenuItem.Visible = true;
+                        beforeCopyStripSeparator1.Visible = true;
+                    }
+                    renameToolStripMenuItem.Visible = false;
+                    deleteToolStripMenuItem.Visible = false;
+                    cutToolStripMenuItem.Visible = false;
+                    copyToolStripMenuItem.Visible = false;
                 }
                 else{
-                    copyToolStripMenuItem.Enabled = true;
+                    pasteToolStripMenuItem.Visible = true;
+                    if (typeOfPaste == 0){
+                        pasteToolStripMenuItem.Enabled = false;
+                    }
+                    else{
+                        pasteToolStripMenuItem.Enabled = true;
+                    }
+                    addNewToolStripMenuItem.Visible = false;
+                    toolStripSeparator2.Visible = false;
+                    beforeCopyStripSeparator1.Visible = true;
+                    renameToolStripMenuItem.Visible = true;
+                    deleteToolStripMenuItem.Visible = true;
+                    cutToolStripMenuItem.Visible = true;
+                    copyToolStripMenuItem.Visible = true;
                 }
             }
-            catch{
-
+            catch (Exception exp){
+                MessageBox.Show($"{exp.Message}");
             }
         }
 
@@ -142,16 +166,75 @@ namespace Another_Damn_File_Manager{
                 string path = Directory.GetCurrentDirectory() + "\\" + listView1.Items[indexCollection[0]].Text;
                 if (Directory.Exists(path)){
                     Directory.Delete(path);
-                    MessageBox.Show($"папка удалена {path}");
+                    MessageBox.Show("Папка была успешно удалена!","Уведомление");
                 }
                 else{
                     File.Delete(path);
-                    MessageBox.Show($"файл удалён {path}");
+                    MessageBox.Show("Файл был успешно удалён!","Уведомление");
                 }
             }
-            catch{
-                MessageBox.Show("Сначала нужно выбрать объект!","Ошибка!");
+            catch (Exception exp){
+                MessageBox.Show($"{exp.Message}","Ошибка!");
             }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e){
+            if(typeOfPaste == 1){//копировать
+                string pathTo = Directory.GetCurrentDirectory() + "\\";
+                //if (Directory.Exists(pathTo)){
+                    File.Copy(pathFrom, pathTo);
+                //}
+            }
+            else if(typeOfPaste == 2){//вырезать
+                string pathTo = Directory.GetCurrentDirectory() + "\\";
+                try{
+                    if (!Directory.Exists(pathTo)){
+                        Directory.Move(pathFrom, pathTo);
+                    }
+                    else if(!File.Exists(pathTo)){
+                        File.Move(pathFrom, pathTo);
+                    }
+                }
+                catch (Exception exp){
+                    MessageBox.Show($"{exp.Message}");
+                }
+                finally{
+                    MessageBox.Show("Файл был успешно перемещён!", "Уведомление");
+                }
+            }
+            else{
+                MessageBox.Show("Сначала нужно выбрать объект!", "Ошибка!");
+            }
+            pathFrom = "";
+            typeOfPaste = 0;
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e){
+            ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
+            try{
+                pathFrom = Path.Combine(Directory.GetCurrentDirectory(), listView1.Items[indexCollection[0]].Text);
+                typeOfPaste = 2;
+            }
+            catch{
+                MessageBox.Show("Сначала нужно выбрать объект!", "Ошибка!");
+            }
+        }
+
+        private void newFolderToolStripMenuItem_Click(object sender, EventArgs e) {
+            inputForm form = new inputForm();
+            form.label1.Text = "Введите название для новой папки:";
+            form.button1.Text = "Создать папку";
+            form.typeOfNewFile = 1;
+            form.Show();
+        }
+
+        private void newTextFileToolStripMenuItem_Click(object sender, EventArgs e){
+            
+            inputForm form = new inputForm();
+            form.label1.Text = "Введите название для нового текстового файла:";
+            form.button1.Text = "Создать текстовый файл";
+            form.typeOfNewFile = 2;
+            form.Show();
         }
     }
 }

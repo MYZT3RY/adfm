@@ -154,7 +154,6 @@
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
             // 
             // contextMenuStrip1
@@ -169,50 +168,52 @@
             this.toolStripSeparator2,
             this.addNewToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 170);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pasteToolStripMenuItem.Text = "Вставить";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // beforeCopyStripSeparator1
             // 
             this.beforeCopyStripSeparator1.Name = "beforeCopyStripSeparator1";
-            this.beforeCopyStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            this.beforeCopyStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cutToolStripMenuItem.Text = "Вырезать";
+            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "Копировать";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Удалить";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renameToolStripMenuItem.Text = "Переименовать";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // addNewToolStripMenuItem
             // 
@@ -221,25 +222,29 @@
             this.toolStripSeparator1,
             this.newTextFileToolStripMenuItem});
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addNewToolStripMenuItem.Text = "Создать";
             // 
             // newFolderToolStripMenuItem
             // 
+            this.newFolderToolStripMenuItem.Image = global::Another_Damn_File_Manager.Properties.Resources.emptyFolder;
             this.newFolderToolStripMenuItem.Name = "newFolderToolStripMenuItem";
-            this.newFolderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.newFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newFolderToolStripMenuItem.Text = "Новая папка";
+            this.newFolderToolStripMenuItem.Click += new System.EventHandler(this.newFolderToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // newTextFileToolStripMenuItem
             // 
+            this.newTextFileToolStripMenuItem.Image = global::Another_Damn_File_Manager.Properties.Resources.txt;
             this.newTextFileToolStripMenuItem.Name = "newTextFileToolStripMenuItem";
-            this.newTextFileToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.newTextFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newTextFileToolStripMenuItem.Text = "Текстовый файл";
+            this.newTextFileToolStripMenuItem.Click += new System.EventHandler(this.newTextFileToolStripMenuItem_Click);
             // 
             // arrayLeftButton
             // 
