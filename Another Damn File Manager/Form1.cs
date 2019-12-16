@@ -20,6 +20,8 @@ namespace Another_Damn_File_Manager{
 
         private string exp;//для вывода исключений
 
+        private string pastPath;
+
         public Form1(){
             InitializeComponent();
         }
@@ -34,17 +36,17 @@ namespace Another_Damn_File_Manager{
         }
 
         private void Form1_Load(object sender, EventArgs e){
-            initListView(System.IO.Directory.GetCurrentDirectory(), listView1, imageList1);
+            initListView(Directory.GetCurrentDirectory(), listView1, imageList1);
         }
 
         private void initListView(string path, ListView listView, ImageList imageList){
             listView.Clear();
             currentDirectoryTextBox.Text = path;
-            foreach (var element in System.IO.Directory.GetDirectories(path)){
+            foreach (var element in Directory.GetDirectories(path)){
                 listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 2);
             }
-            foreach (var element in System.IO.Directory.GetFiles(path)){
-                string extension = System.IO.Path.GetExtension(element);
+            foreach (var element in Directory.GetFiles(path)){
+                string extension = Path.GetExtension(element);
                 if(extension == ".png" || extension == ".ico"){
                     listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 3);
                 }
@@ -76,12 +78,12 @@ namespace Another_Damn_File_Manager{
         }
 
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e){
-            path = System.IO.Directory.GetCurrentDirectory() + "\\" + e.Item.Text;
+            path = Directory.GetCurrentDirectory() + "\\" + e.Item.Text;
         }
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e){
-            if (System.IO.Directory.Exists(path)){
-                System.IO.Directory.SetCurrentDirectory(path);
+            if (Directory.Exists(path)){
+                Directory.SetCurrentDirectory(path);
                 initListView(path, listView1, imageList1);
             }
             else{
@@ -93,19 +95,29 @@ namespace Another_Damn_File_Manager{
             if(e.KeyCode == Keys.Enter){
                 string tmpPath;
                 tmpPath = currentDirectoryTextBox.Text;
-                System.IO.Directory.SetCurrentDirectory(tmpPath);
+                Directory.SetCurrentDirectory(tmpPath);
                 initListView(tmpPath, listView1, imageList1);
             }
         }
 
         private void arrayLeftButton_Click(object sender, EventArgs e){
-            var tmpPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory());
-            System.IO.Directory.SetCurrentDirectory(tmpPath.ToString());
-            initListView(tmpPath.ToString(), listView1, imageList1);
+            try{
+                var tmpPath = Directory.GetParent(Directory.GetCurrentDirectory());
+                pastPath = Directory.GetCurrentDirectory();
+                arrayRightButton.Enabled = true;
+                Directory.SetCurrentDirectory(tmpPath.ToString());
+                initListView(tmpPath.ToString(), listView1, imageList1);
+            }
+            catch(NullReferenceException){
+                MessageBox.Show("Недопустимая директория!");
+            }
+            catch (Exception exp){
+                MessageBox.Show($"{exp}");
+            }
         }
 
         private void refreshButton_Click(object sender, EventArgs e){
-            initListView(System.IO.Directory.GetCurrentDirectory(), listView1, imageList1);
+            initListView(Directory.GetCurrentDirectory(), listView1, imageList1);
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e){
@@ -181,9 +193,9 @@ namespace Another_Damn_File_Manager{
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e){
             if(typeOfPaste == 1){//копировать
                 string pathTo = Directory.GetCurrentDirectory() + "\\";
-                //if (Directory.Exists(pathTo)){
-                    File.Copy(pathFrom, pathTo);
-                //}
+                if (Directory.Exists(pathTo)){
+                    Directory.Move(pathFrom, pathTo);
+                }
             }
             else if(typeOfPaste == 2){//вырезать
                 string pathTo = Directory.GetCurrentDirectory() + "\\";
@@ -229,12 +241,40 @@ namespace Another_Damn_File_Manager{
         }
 
         private void newTextFileToolStripMenuItem_Click(object sender, EventArgs e){
-            
             inputForm form = new inputForm();
             form.label1.Text = "Введите название для нового текстового файла:";
             form.button1.Text = "Создать текстовый файл";
             form.typeOfNewFile = 2;
             form.Show();
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e){
+            ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
+            if(indexCollection.Count != 0){
+                string tmpPath = Path.Combine(Directory.GetCurrentDirectory(), indexCollection[0].ToString());
+                if (Directory.Exists(tmpPath)){
+
+                }
+                if(File.Exists(Path.GetFileNameWithoutExtension(tmpPath))){
+
+                }
+                inputForm form = new inputForm();
+                form.label1.Text = "";
+            }
+            else{
+                MessageBox.Show("Сначала нужно выбрать объект!","Ошибка!");
+            }
+        }
+
+        private void arrayRightButton_Click(object sender, EventArgs e){
+            if (pastPath.Length != 0){
+                if (Directory.Exists(pastPath)){
+                    Directory.SetCurrentDirectory(pastPath.ToString());
+                    initListView(pastPath.ToString(), listView1, imageList1);
+                    pastPath = "";
+                    arrayRightButton.Enabled = false;
+                }
+            }
         }
     }
 }

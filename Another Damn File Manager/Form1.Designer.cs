@@ -36,7 +36,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.refreshButton = new System.Windows.Forms.Button();
             this.currentDirectoryTextBox = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -51,8 +50,10 @@
             this.newFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.newTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.arrayLeftButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.arrayRightButton = new System.Windows.Forms.Button();
+            this.arrayLeftButton = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -119,23 +120,12 @@
             this.imageList1.Images.SetKeyName(10, "emptyFolder.png");
             this.imageList1.Images.SetKeyName(11, "application.png");
             // 
-            // refreshButton
-            // 
-            this.refreshButton.ImageKey = "refresh.png";
-            this.refreshButton.ImageList = this.imageList1;
-            this.refreshButton.Location = new System.Drawing.Point(43, 3);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(34, 30);
-            this.refreshButton.TabIndex = 4;
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
             // currentDirectoryTextBox
             // 
             this.currentDirectoryTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.currentDirectoryTextBox.Location = new System.Drawing.Point(83, 3);
+            this.currentDirectoryTextBox.Location = new System.Drawing.Point(123, 3);
             this.currentDirectoryTextBox.Name = "currentDirectoryTextBox";
-            this.currentDirectoryTextBox.Size = new System.Drawing.Size(791, 20);
+            this.currentDirectoryTextBox.Size = new System.Drawing.Size(751, 20);
             this.currentDirectoryTextBox.TabIndex = 2;
             this.currentDirectoryTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.currentDirectoryTextBox_KeyDown);
             // 
@@ -168,52 +158,53 @@
             this.toolStripSeparator2,
             this.addNewToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 170);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 148);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.pasteToolStripMenuItem.Text = "Вставить";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // beforeCopyStripSeparator1
             // 
             this.beforeCopyStripSeparator1.Name = "beforeCopyStripSeparator1";
-            this.beforeCopyStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.beforeCopyStripSeparator1.Size = new System.Drawing.Size(158, 6);
             // 
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.cutToolStripMenuItem.Text = "Вырезать";
             this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.copyToolStripMenuItem.Text = "Копировать";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.deleteToolStripMenuItem.Text = "Удалить";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.renameToolStripMenuItem.Text = "Переименовать";
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
             // 
             // addNewToolStripMenuItem
             // 
@@ -222,34 +213,69 @@
             this.toolStripSeparator1,
             this.newTextFileToolStripMenuItem});
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.addNewToolStripMenuItem.Text = "Создать";
             // 
             // newFolderToolStripMenuItem
             // 
             this.newFolderToolStripMenuItem.Image = global::Another_Damn_File_Manager.Properties.Resources.emptyFolder;
             this.newFolderToolStripMenuItem.Name = "newFolderToolStripMenuItem";
-            this.newFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newFolderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.newFolderToolStripMenuItem.Text = "Новая папка";
             this.newFolderToolStripMenuItem.Click += new System.EventHandler(this.newFolderToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
             // 
             // newTextFileToolStripMenuItem
             // 
             this.newTextFileToolStripMenuItem.Image = global::Another_Damn_File_Manager.Properties.Resources.txt;
             this.newTextFileToolStripMenuItem.Name = "newTextFileToolStripMenuItem";
-            this.newTextFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newTextFileToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.newTextFileToolStripMenuItem.Text = "Текстовый файл";
             this.newTextFileToolStripMenuItem.Click += new System.EventHandler(this.newTextFileToolStripMenuItem_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.arrayRightButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.arrayLeftButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.refreshButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.currentDirectoryTextBox, 3, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 40);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // arrayRightButton
+            // 
+            this.arrayRightButton.BackgroundImage = global::Another_Damn_File_Manager.Properties.Resources.arrayRight;
+            this.arrayRightButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.arrayRightButton.Enabled = false;
+            this.arrayRightButton.ImageKey = "refresh.png";
+            this.arrayRightButton.Location = new System.Drawing.Point(43, 3);
+            this.arrayRightButton.Name = "arrayRightButton";
+            this.arrayRightButton.Size = new System.Drawing.Size(34, 30);
+            this.arrayRightButton.TabIndex = 5;
+            this.arrayRightButton.UseVisualStyleBackColor = true;
+            this.arrayRightButton.Click += new System.EventHandler(this.arrayRightButton_Click);
+            // 
             // arrayLeftButton
             // 
+            this.arrayLeftButton.BackgroundImage = global::Another_Damn_File_Manager.Properties.Resources.arrayLeft;
+            this.arrayLeftButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.arrayLeftButton.ImageKey = "arrayLeft.png";
-            this.arrayLeftButton.ImageList = this.imageList1;
             this.arrayLeftButton.Location = new System.Drawing.Point(3, 3);
             this.arrayLeftButton.Name = "arrayLeftButton";
             this.arrayLeftButton.Size = new System.Drawing.Size(34, 30);
@@ -257,24 +283,17 @@
             this.arrayLeftButton.UseVisualStyleBackColor = true;
             this.arrayLeftButton.Click += new System.EventHandler(this.arrayLeftButton_Click);
             // 
-            // tableLayoutPanel1
+            // refreshButton
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.arrayLeftButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.refreshButton, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.currentDirectoryTextBox, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 40);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.refreshButton.BackgroundImage = global::Another_Damn_File_Manager.Properties.Resources.refresh;
+            this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshButton.ImageKey = "refresh.png";
+            this.refreshButton.Location = new System.Drawing.Point(83, 3);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(34, 30);
+            this.refreshButton.TabIndex = 4;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -342,6 +361,7 @@
         private System.Windows.Forms.ToolStripMenuItem newFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem newTextFileToolStripMenuItem;
+        private System.Windows.Forms.Button arrayRightButton;
     }
 }
 
