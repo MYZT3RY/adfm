@@ -43,36 +43,50 @@ namespace Another_Damn_File_Manager{
             listView.Clear();
             currentDirectoryTextBox.Text = path;
             foreach (var element in Directory.GetDirectories(path)){
-                listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 2);
+                string dirName = Path.GetFileName(element);
+                listView.Items.Add(dirName, 10);
             }
             foreach (var element in Directory.GetFiles(path)){
                 string extension = Path.GetExtension(element);
-                if(extension == ".png" || extension == ".ico"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 3);
-                }
-                else if (extension == ".exe"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 1);
-                }
-                else if (extension == ".zip"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 5);
-                }
-                else if(extension == ".cs" || extension == ".c" || extension == ".cpp" || extension == ".pas" || extension == ".h" || extension == ".java" || extension == ".js" || extension == ".lua" || extension == ".php" || extension == ".py"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 6);
-                }
-                else if(extension == ".dll"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 7);
-                }
-                else if(extension == ".txt"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 8);
-                }
-                else if(extension == ".mp4" || extension == ".avi" || extension == ".mkv"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 9);
-                }
-                else if (extension == ".mp3" || extension == ".flac" || extension == ".m3u" || extension == ".ogg"){
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 10);
-                }
-                else{
-                    listView.Items.Add(element.Substring(element.LastIndexOf("\\") + 1), imageList.Images.Count - 4);
+                string fileName = Path.GetFileName(element);
+                switch (extension){
+                    case ".png": case ".ico":{
+                            listView.Items.Add(fileName, 9);
+                            break;
+                        }
+                    case ".exe":{
+                            listView.Items.Add(fileName, 11);
+                            break;
+                        }
+                    case ".zip":{
+                            listView.Items.Add(fileName, 7);
+                            break;
+                        }
+                    case ".cs": case ".c": case ".cpp": case ".pas": case ".h": case ".java": case ".js": case ".lua": case ".php": case ".py":{
+                            listView.Items.Add(fileName, 6);
+                            break;
+                        }
+                    case ".dll":{
+                            listView.Items.Add(fileName, 5);
+                            break;
+                        }
+                    case ".txt":{
+                            listView.Items.Add(fileName, 4);
+                            break;
+                        }
+                    case ".mp4": case ".avi": case ".mkv":{
+                            listView.Items.Add(fileName, 3);
+                            break;
+                        }
+                    case ".mp3": case ".flac": case ".m3u": case ".ogg":{
+                            listView.Items.Add(fileName, 2);
+                            break;
+                        }
+                    default:{
+                            listView.Items.Add(fileName, 8);
+                            break;
+                        }
+
                 }
             }
         }
@@ -208,7 +222,7 @@ namespace Another_Damn_File_Manager{
                     }
                 }
                 catch (Exception exp){
-                    MessageBox.Show($"{exp.Message}");
+                    MessageBox.Show($"{exp.Message}","Ошибка!");
                 }
                 finally{
                     MessageBox.Show("Файл был успешно перемещён!", "Уведомление");
@@ -251,15 +265,19 @@ namespace Another_Damn_File_Manager{
         private void renameToolStripMenuItem_Click(object sender, EventArgs e){
             ListView.SelectedIndexCollection indexCollection = this.listView1.SelectedIndices;
             if(indexCollection.Count != 0){
-                string tmpPath = Path.Combine(Directory.GetCurrentDirectory(), indexCollection[0].ToString());
-                if (Directory.Exists(tmpPath)){
-
-                }
-                if(File.Exists(Path.GetFileNameWithoutExtension(tmpPath))){
-
-                }
+                string tmpPath = Path.Combine(Directory.GetCurrentDirectory(), listView1.Items[indexCollection[0]].Text);
                 inputForm form = new inputForm();
-                form.label1.Text = "";
+                if (Directory.Exists(tmpPath)){
+                    form.label1.Text = "Введите новое название для папки:";
+                    form.typeOfNewFile = 3;
+                }
+                else if(File.Exists(tmpPath)){
+                    form.label1.Text = "Введите новое название для файла:";
+                    form.typeOfNewFile = 4;
+                }
+                form.oldPath = tmpPath;
+                form.button1.Text = "Переименовать";
+                form.Show();
             }
             else{
                 MessageBox.Show("Сначала нужно выбрать объект!","Ошибка!");

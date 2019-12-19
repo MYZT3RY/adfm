@@ -12,6 +12,7 @@ namespace Another_Damn_File_Manager{
     public partial class inputForm : Form{
 
         public int typeOfNewFile=0;
+        public string oldPath;
         public inputForm(){
             InitializeComponent();
         }
@@ -38,6 +39,27 @@ namespace Another_Damn_File_Manager{
                             else{
                                 path += ".txt";
                                 System.IO.File.Create(path);
+                            }
+                            break;
+                        }
+                    case 3:{//переименовать папку
+                            if (System.IO.Directory.Exists(path)){
+                                MessageBox.Show("Каталог с данным названием уже существует!", "Ошибка");
+                                inputTextBox.Text = "";
+                            }
+                            else{
+                                System.IO.Directory.Move(oldPath, path);
+                            }
+                            break;
+                        }
+                    case 4:{//переименовать файл
+                            if (System.IO.File.Exists(path)){
+                                MessageBox.Show("Файл с данным названием уже существует!", "Ошибка");
+                                inputTextBox.Text = "";
+                            }
+                            else{
+                                string exstension = System.IO.Path.GetExtension(oldPath);
+                                System.IO.File.Move(oldPath,System.IO.Path.ChangeExtension(path,exstension));
                             }
                             break;
                         }

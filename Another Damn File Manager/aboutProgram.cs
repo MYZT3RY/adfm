@@ -14,11 +14,11 @@ namespace Another_Damn_File_Manager{
             InitializeComponent();
             label1.Text = "Another Damn File Manager - Ещё один чёртов файловый менеджер.";
             label2.Text = "Произведено ручками d1maz. - Дмитрий Якимов.\n\nДля свободного использования.\nРаспространяется по лицензии GPL-3.0";
-            label3.Text = "Copyright (c) 2019-2019 d1maz.";
+            label3.Text = $"Copyright (c) 2019-{DateTime.Now.Year.ToString()} d1maz.";
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
-            System.Diagnostics.Process.Start("https://d1maz.ru/adfm");
+            System.Diagnostics.Process.Start("https://d1maz.com/adfm");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
